@@ -18,9 +18,11 @@
     "noImplicitThis": false,
     "strictNullChecks": false,
     "baseUrl": "./src",
+    "outDir": "dist",
     "paths": {
       "*": [
-        "*"
+        "*",
+        "utils/*"
       ]
     }
   },

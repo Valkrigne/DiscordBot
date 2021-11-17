@@ -5,7 +5,7 @@ import {
   getFFXIVChannel,
   defaultEmbedValues,
   buildEmbededMessage
-} from '../utils'
+} from 'utils'
 
 async function updateFFXIVEmbed(client: Discord.Client) {
   const message = await getFFXIVMessage(client)
