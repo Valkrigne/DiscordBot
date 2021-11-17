@@ -8,7 +8,7 @@ export default function getEnvValue(key: string, forceQuitOnFail: boolean = fals
 
   if (forceQuitOnFail) {
     console.log(`${key} not set, exiting...`)
-    exit(-1)
+    exit(1)
   } else {
     console.log(`${key} not set`)
     return ''

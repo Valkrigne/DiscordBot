@@ -67,15 +67,11 @@ function updateEmbeds(client: Discord.Client) {
     console.log('Updating Embeds...')
     embeds(client).then(() => {
       console.log('Updates Complete')
-      exit(1)
+      exit(0)
     })
   })
 
   client.login(config.token)
-}
-
-function destroyBot(client: Discord.Client) {
-  client.destroy()
 }
 
 export {

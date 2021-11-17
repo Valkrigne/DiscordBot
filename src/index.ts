@@ -12,6 +12,15 @@ import {
 
 const client = initializeBot()
 
+// Ensure client connection is closed on common exits
+process.on('exit', () => {
+  client.destroy()
+})
+
+process.on('SIGINT', () => {
+  client.destroy()
+})
+
 // some switch/logic for this
 if (true) {
   updateEmbeds(client)
