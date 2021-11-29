@@ -1,30 +1,26 @@
 if (process.env.NODE_ENV === 'development') {
-  require('dotenv').config({ path:  '.env.dev'})
+  require('dotenv').config({ path: '.env.dev' });
 } else {
-  require('dotenv').config()
+  require('dotenv').config();
 }
 
-import {
-  initializeBot,
-  runBot,
-  updateEmbeds
-} from './bot'
+import { initializeBot, runBot, updateEmbeds } from './bot';
 
-const client = initializeBot()
+const client = initializeBot();
 
 // Ensure client connection is closed on common exits
 process.on('exit', () => {
-  client.destroy()
-})
+  client.destroy();
+});
 
 process.on('SIGINT', () => {
-  client.destroy()
-})
+  client.destroy();
+});
 
 // some switch/logic for this
+// eslint-disable-next-line no-constant-condition
 if (true) {
-  updateEmbeds(client)
+  updateEmbeds(client);
 } else {
-  runBot(client)
+  runBot(client);
 }
-

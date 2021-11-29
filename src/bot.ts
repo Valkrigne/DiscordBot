@@ -1,29 +1,33 @@
-import type Discord from 'discord.js'
-import { Client, Collection } from 'discord.js'
+import type Discord from 'discord.js';
+import { Client, Collection } from 'discord.js';
 
-import embeds from './embeds'
+import embeds from './embeds';
 
-import config from './config'
-import { exit } from 'process'
+import config from './config';
+import { exit } from 'process';
 
-
-type CommandKeys = string
+type CommandKeys = string;
 
 interface Command {
-  execute: (client: Discord.Client, message: Discord.Message, args: string[]) => void
+  execute: (
+    client: Discord.Client,
+    message: Discord.Message,
+    args: string[],
+  ) => void;
 }
 
 function initializeBot(): Discord.Client {
-  const clientOptions: Discord.ClientOptions = { intents: [] }
-  const client = new Client(clientOptions)
+  const clientOptions: Discord.ClientOptions = { intents: [] };
+  const client = new Client(clientOptions);
   if (process.env.NODE_ENV === 'development') {
-    client.on('debug', console.log)
+    client.on('debug', console.log);
   }
-  return client
+  return client;
 }
 
+// command handling from: https://github.com/lem-n/discord.js-boilerplate
 function runBot(client: Discord.Client) {
-  const commands = new Collection<CommandKeys, Command>()
+  const commands = new Collection<CommandKeys, Command>();
 
   client
     .on('ready', () => {
@@ -31,9 +35,9 @@ function runBot(client: Discord.Client) {
     })
     .on('message', (message) => {
       // Make sure the message contains the command prefix from the config.json.
-      if (!message.content.startsWith(config.prefix)) return
+      if (!message.content.startsWith(config.prefix)) return;
       // Make sure the message author isn't a bot
-      if (message.author.bot) return
+      if (message.author.bot) return;
 
       // Split the message content and store the command called, and the args.
       const messageSplit = message.content.split(/\s+/g);
@@ -58,24 +62,19 @@ function runBot(client: Discord.Client) {
       }
     });
 
-  client.login(config.token)
+  client.login(config.token);
 }
 
 function updateEmbeds(client: Discord.Client) {
-  client
-  .on('ready', () => {
-    console.log('Updating Embeds...')
+  client.on('ready', () => {
+    console.log('Updating Embeds...');
     embeds(client).then(() => {
-      console.log('Updates Complete')
-      exit(0)
-    })
-  })
+      console.log('Updates Complete');
+      exit(0);
+    });
+  });
 
-  client.login(config.token)
+  client.login(config.token);
 }
 
-export {
-  initializeBot,
-  runBot,
-  updateEmbeds
-}
+export { initializeBot, runBot, updateEmbeds };
